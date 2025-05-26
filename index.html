@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vehicle Checklist - TRIO EVOLUTION</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0fdf4;
+      padding: 40px;
+      color: #1b4332;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 6px 24px rgba(0, 80, 50, 0.1);
+    }
+    .company-name {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: #1b4332;
+    }
+    h1 {
+      text-align: center;
+      color: #2d6a4f;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="date"], select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #d8f3dc;
+      border-radius: 8px;
+      background: #f8fff9;
+    }
+    .checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 25px;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .item img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    .signatures {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .signatures div {
+      flex: 1;
+    }
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #2d6a4f;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1b4332;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="company-name">TRIO EVOLUTION</div>
+    <h1>Vehicle Regular Checking Form</h1>
+
+    <form id="checklistForm">
+      <label for="date">Date</label>
+      <input type="date" name="date" id="date" required>
+
+      <label for="shift">Shift</label>
+      <select name="shift" id="shift">
+        <option value="Day">Day</option>
+        <option value="Night">Night</option>
+      </select>
+
+      <label for="vehicleStatus">Vehicle Status</label>
+      <select name="vehicleStatus" id="vehicleStatus">
+        <option value="IN">IN</option>
+        <option value="OUT">OUT</option>
+      </select>
+
+      <label for="driverName">Driver Name</label>
+      <input type="text" name="driverName" id="driverName" required>
+
+      <label for="vehicleNumber">Vehicle Number</label>
+      <input type="text" name="vehicleNumber" id="vehicleNumber" required>
+
+      <div class="checklist">
+        <label class="item"><input type="checkbox" name="checklist" value="Stepney Tyre"><img src="stepney.png">Stepney Tyre</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Medical Box"><img src="medical.png">Medical Box</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Jack"><img src="jack.png">Jack</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Torch"><img src="torch.png">Torch</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Fire Kit"><img src="fire.png">Fire Kit</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Umbrella"><img src="umbrella.png">Umbrella</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Mobile Stand"><img src="mobile.png">Mobile Stand</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Cleaning Cloth"><img src="cloth.png">Cleaning Cloth</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Charging Wire"><img src="wire.png">Charging Wire</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Lug Wrench"><img src="wrench.png">Lug Wrench</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Alcohol Taste"><img src="alcohol.png">Alcohol Taste</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Car Clean"><img src="car_clean.png">Car Clean</label>
+        <label class="item"><input type="checkbox" name="checklist" value="Car Smell"><img src="smell.png">Car Smell</label>
+      </div>
+
+      <div class="signatures">
+        <div>
+          <label for="officerName">Inspecting Officer Name</label>
+          <input type="text" id="officerName" name="officerName">
+        </div>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_URL/exec';
+    const form = document.getElementById('checklistForm');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => alert('Form submitted successfully!'))
+        .catch(error => alert('Error submitting form: ' + error.message));
+    });
+  </script>
+</body>
+</html>
