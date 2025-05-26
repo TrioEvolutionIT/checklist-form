@@ -133,9 +133,7 @@
         <label class="item"><input type="checkbox" name="checklist" value="Umbrella"><img src="umbrella.png" alt="Umbrella">Umbrella</label>
         <label class="item"><input type="checkbox" name="checklist" value="Mobile Stand"><img src="mobile.png" alt="Mobile Stand">Mobile Stand</label>
         <label class="item"><input type="checkbox" name="checklist" value="Cleaning Cloth"><img src="cloth.png" alt="Cleaning Cloth">Cleaning Cloth</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Charging Wire"><img src="wire.png" alt="Charging Wire">Charging Wire</label>
         <label class="item"><input type="checkbox" name="checklist" value="Lug Wrench"><img src="wrench.png" alt="Lug Wrench">Lug Wrench</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Alcohol Taste"><img src="alcohol.png" alt="Alcohol">Alcohol Taste</label>
         <label class="item"><input type="checkbox" name="checklist" value="Car Clean"><img src="car_clean.jpg" alt="Car Clean">Car Clean</label>
         <label class="item"><input type="checkbox" name="checklist" value="Car Smell"><img src="smell.jpg" alt="Car Smell">Car Smell</label>
       </div>
@@ -158,7 +156,11 @@
     form.addEventListener('submit', e => {
       e.preventDefault();
       fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => alert('Form submitted successfully!'))
+        .then(response => {
+           alert('Form submitted successfully!');
+           form.reset(); // Clear form after submission
+            })
+
         .catch(error => alert('Error submitting form: ' + error.message));
     });
   </script>
