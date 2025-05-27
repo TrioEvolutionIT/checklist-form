@@ -5,6 +5,7 @@
   <title>Vehicle Checklist - TRIO EVOLUTION</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -119,7 +120,7 @@
       </select>
 
       <label for="driverName">Driver Name</label>
-      <select name="driverName" id="driverName" required>
+      <select name="driverName" id="driverName" class="select2" required>
   <option value="" disabled selected>Select Driver Name</option>
   <option value="SWARAJIT MONDAL">SWARAJIT MONDAL</option>
   <option value="AVISHEK NAYAK">AVISHEK NAYAK</option>
@@ -140,7 +141,7 @@
 </select>
 
       <label for="vehicleNumber">Vehicle Number</label>
-      <select name="vehicleNumber" id="vehicleNumber" required>
+      <select name="vehicleNumber" id="vehicleNumber" class="select2" required>
   <option value="" disabled selected>Select Vehicle Number</option>
   <option value="WB01BC4246">WB01BC4246</option>
   <option value="WB01BC4245">WB01BC4245</option>
@@ -240,6 +241,13 @@
         alert('Error submitting form: ' + error.message);
       });
     });
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.select2').select2();
+    });
+  </script>
   </script>
 </body>
 </html>
