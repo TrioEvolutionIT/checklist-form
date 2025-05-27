@@ -40,7 +40,7 @@
       margin-top: 15px;
       margin-bottom: 5px;
     }
-    input[type="text"], input[type="date"], select {
+    input[type="text"], input[type="date"], select, input[type="number"] {
       width: 100%;
       padding: 10px;
       border: 2px solid #d8f3dc;
@@ -124,23 +124,37 @@
       <label for="vehicleNumber">Vehicle Number</label>
       <input type="text" name="vehicleNumber" id="vehicleNumber" required>
 
+      <label for="odometer">Odometer Reading</label>
+      <input type="number" name="odometer" id="odometer" required>
+
+      <label for="company">Company</label>
+      <select name="company" id="company" required>
+        <option value="">Select Company</option>
+        <option value="TCS">TCS</option>
+        <option value="Concentrix">Concentrix</option>
+        <option value="Capgemini">Capgemini</option>
+        <option value="Cognizant">Cognizant</option>
+      </select>
+
+      <div id="kmTripsWrapper"></div>
+
       <div class="checklist">
-        <label class="item"><input type="checkbox" name="checklist" value="Stepney Tyre"><img src="stepney.png" alt="Stepney">Stepney Tyre</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Medical Box"><img src="medical.png" alt="Medical">Medical Box</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Jack"><img src="jack.png" alt="Jack">Jack</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Torch"><img src="torch.png" alt="Torch">Torch</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Fire Kit"><img src="fire.png" alt="Fire Kit">Fire Kit</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Umbrella"><img src="umbrella.png" alt="Umbrella">Umbrella</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Mobile Stand"><img src="mobile.png" alt="Mobile Stand">Mobile Stand</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Cleaning Cloth"><img src="cloth.png" alt="Cleaning Cloth">Cleaning Cloth</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Lug Wrench"><img src="wrench.png" alt="Lug Wrench">Lug Wrench</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Car Clean"><img src="car_clean.jpg" alt="Car Clean">Car Clean</label>
-        <label class="item"><input type="checkbox" name="checklist" value="Car Smell"><img src="smell.jpg" alt="Car Smell">Car Smell</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Stepney Tyre"><img src="stepney.png">Stepney Tyre</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Medical Box"><img src="medical.png">Medical Box</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Jack"><img src="jack.png">Jack</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Torch"><img src="torch.png">Torch</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Fire Kit"><img src="fire.png">Fire Kit</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Umbrella"><img src="umbrella.png">Umbrella</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Mobile Stand"><img src="mobile.png">Mobile Stand</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Cleaning Cloth"><img src="cloth.png">Cleaning Cloth</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Lug Wrench"><img src="wrench.png">Lug Wrench</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Car Clean"><img src="car_clean.jpg">Car Clean</label>
+        <label class="item"><input type="checkbox" name="checklist[]" value="Car Smell"><img src="smell.jpg">Car Smell</label>
       </div>
 
       <div class="signatures">
         <div>
-          <label for="officerName">Supervisior Name</label>
+          <label for="officerName">Inspecting Officer Name</label>
           <input type="text" id="officerName" name="officerName">
         </div>
       </div>
@@ -150,22 +164,41 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzhc5yvyMK6ZNLC8BPwIhhapQ6cvcyYNdcEfOvQqCpbw8dDtHAq8qjNyZ9B6j00Rv9j/exec'; // ← Replace with your deployed Apps Script URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx5Y1jXYzideC2bUCb_tYropNGldBtpX2IEccbeafHNsnQRsq2acfsTTTP70lr4frvT/exec';
     const form = document.getElementById('checklistForm');
+    const company = document.getElementById('company');
+    const wrapper = document.getElementById('kmTripsWrapper');
+
+    company.addEventListener('change', () => {
+      wrapper.innerHTML = '';
+      if (company.value === 'TCS') {
+        wrapper.innerHTML = `
+          <label for="totalKm">Total KM</label>
+          <input type="number" name="totalKm" id="totalKm" required>
+        `;
+      } else if (company.value) {
+        wrapper.innerHTML = `
+          <label for="trips">Number of Trips</label>
+          <input type="number" name="trips" id="trips" required>
+        `;
+      }
+    });
 
     form.addEventListener('submit', e => {
       e.preventDefault();
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => {
-           alert('Form submitted successfully!');
-           form.reset(); // Clear form after submission
-            })
-
-        .catch(error => alert('Error submitting form: ' + error.message));
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
+      })
+      .then(response => {
+        alert('Form submitted successfully!');
+        form.reset();
+        wrapper.innerHTML = ''; // clear extra input
+      })
+      .catch(error => {
+        alert('Error submitting form: ' + error.message);
+      });
     });
   </script>
 </body>
 </html>
-
-
-  
