@@ -196,8 +196,8 @@
       wrapper.innerHTML = '';
       if (company.value === 'TCS') {
         wrapper.innerHTML = `
-          <label for="totalKm">Total KM</label>
-          <input type="number" name="totalKm" id="totalKm" required>
+          <label for="totalKm">Trip KM</label>
+          <input type="number" name="totalKm" id="totalKm" step="0.01" required>
         `;
       } else if (company.value) {
         wrapper.innerHTML = `
