@@ -99,12 +99,11 @@
 </head>
 <body>
   <div class="container">
-  <div style="text-align: center;">
-    <img src="logo.jpg" alt="TRIO EVOLUTION Logo" style="max-width: 120px; margin-bottom: 10px;">
-  </div>
-  <div class="company-name">TRIO EVOLUTION</div>
-  <h1>Vehicle Regular Checking Form</h1>
-
+    <div style="text-align: center;">
+      <img src="logo.jpg" alt="TRIO EVOLUTION Logo" style="max-width: 120px; margin-bottom: 10px;">
+    </div>
+    <div class="company-name">TRIO EVOLUTION</div>
+    <h1>Vehicle Regular Checking Form</h1>
 
     <form id="checklistForm">
       <label for="date">Date</label>
@@ -125,35 +124,34 @@
       <label for="driverName">Driver Name</label>
       <input type="text" name="driverName" id="driverName" required>
 
-     <label for="vehicleNumber">Vehicle Number</label>
-<select name="vehicleNumber" id="vehicleNumber" required>
-  <option value="" disabled selected>Select Vehicle Number</option>
-  <option value="WB01BC4246">WB01BC4246</option>
-  <option value="WB01BC4245">WB01BC4245</option>
-  <option value="WB01BC4238">WB01BC4238</option>
-  <option value="WB01BC4235">WB01BC4235</option>
-  <option value="WB01BC4232">WB01BC4232</option>
-  <option value="WB01BC4228">WB01BC4228</option>
-  <option value="WB01BC4224">WB01BC4224</option>
-  <option value="WB01BC4220">WB01BC4220</option>
-  <option value="WB01BC4216">WB01BC4216</option>
-  <option value="WB01BC4215">WB01BC4215</option>
-  <option value="WB01BC4209">WB01BC4209</option>
-  <option value="WB01BC4208">WB01BC4208</option>
-  <option value="WB01BC4206">WB01BC4206</option>
-  <option value="WB01BC4201">WB01BC4201</option>
-  <option value="WB01BC4188">WB01BC4188</option>
-  <option value="WB01BC4186">WB01BC4186</option>
-  <option value="WB01BC4175">WB01BC4175</option>
-  <option value="WB01BC4169">WB01BC4169</option>
-  <option value="WB01BC4167">WB01BC4167</option>
-  <option value="WB01BB8310">WB01BB8310</option>
-  <option value="WB01BB4228">WB01BB4228</option>
-  <option value="WB05A3107">WB05A3107</option>
-  <option value="WB05A3138">WB05A3138</option>
-  <option value="WB04J2670">WB04J2670</option>
-</select>
-
+      <label for="vehicleNumber">Vehicle Number</label>
+      <select name="vehicleNumber" id="vehicleNumber" required>
+        <option value="" disabled selected>Select Vehicle Number</option>
+        <option value="WB01BC4246">WB01BC4246</option>
+        <option value="WB01BC4245">WB01BC4245</option>
+        <option value="WB01BC4238">WB01BC4238</option>
+        <option value="WB01BC4235">WB01BC4235</option>
+        <option value="WB01BC4232">WB01BC4232</option>
+        <option value="WB01BC4228">WB01BC4228</option>
+        <option value="WB01BC4224">WB01BC4224</option>
+        <option value="WB01BC4220">WB01BC4220</option>
+        <option value="WB01BC4216">WB01BC4216</option>
+        <option value="WB01BC4215">WB01BC4215</option>
+        <option value="WB01BC4209">WB01BC4209</option>
+        <option value="WB01BC4208">WB01BC4208</option>
+        <option value="WB01BC4206">WB01BC4206</option>
+        <option value="WB01BC4201">WB01BC4201</option>
+        <option value="WB01BC4188">WB01BC4188</option>
+        <option value="WB01BC4186">WB01BC4186</option>
+        <option value="WB01BC4175">WB01BC4175</option>
+        <option value="WB01BC4169">WB01BC4169</option>
+        <option value="WB01BC4167">WB01BC4167</option>
+        <option value="WB01BB8310">WB01BB8310</option>
+        <option value="WB01BB4228">WB01BB4228</option>
+        <option value="WB05A3107">WB05A3107</option>
+        <option value="WB05A3138">WB05A3138</option>
+        <option value="WB04J2670">WB04J2670</option>
+      </select>
 
       <label for="odometer">Odometer Reading</label>
       <input type="number" name="odometer" id="odometer" step="0.01" required>
@@ -161,28 +159,16 @@
       <label for="charging">Charging Percentage (%)</label>
       <input type="number" name="charging" id="charging" min="0" max="100" step="0.01" required>
 
-      <label for="tcs">TCS</label>
-      <select name="tcs" id="tcs" >
-        <option value="">Select</option>
-        <option value="YES">YES</option>
-        <option value="NO">NO</option>
-      </select>
-
-      <div id="tripKmContainer" style="display:none;">
-        <label for="tripKm">Trip KM</label>
-        <input type="number" name="tripKm" id="tripKm" step="0.01">
-      </div>
-
       <label for="company">Company</label>
-      <select name="company" id="company" >
+      <select name="company" id="company" required>
         <option value="">Select Company</option>
+        <option value="TCS">TCS</option>
         <option value="Concentrix">Concentrix</option>
         <option value="Capgemini">Capgemini</option>
         <option value="Cognizant">Cognizant</option>
       </select>
 
-      <label for="numTrips">Number of Trips</label>
-      <input type="number" name="numTrips" id="numTrips">
+      <div id="kmTripsWrapper"></div>
 
       <div class="checklist">
         <label class="item"><input type="checkbox" name="checklist[]" value="Stepney Tyre"><img src="stepney.png">Stepney Tyre</label>
@@ -204,43 +190,50 @@
           <input type="text" id="officerName" name="officerName" required>
         </div>
       </div>
-       <label for="remarks">Remarks (if any)</label>
-<textarea name="remarks" id="remarks" rows="3" style="width: 100%; padding: 10px; border: 2px solid #d8f3dc; border-radius: 8px; background: #f8fff9; box-sizing: border-box;"></textarea>
 
+      <label for="remarks">Remarks (if any)</label>
+      <textarea name="remarks" id="remarks" rows="3" style="width: 100%; padding: 10px; border: 2px solid #d8f3dc; border-radius: 8px; background: #f8fff9; box-sizing: border-box;"></textarea>
 
       <button type="submit">Submit</button>
     </form>
   </div>
 
   <script>
-    const tcs = document.getElementById('tcs');
-    const tripKmContainer = document.getElementById('tripKmContainer');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx5Y1jXYzideC2bUCb_tYropNGldBtpX2IEccbeafHNsnQRsq2acfsTTTP70lr4frvT/exec';
+    const form = document.getElementById('checklistForm');
+    const company = document.getElementById('company');
+    const wrapper = document.getElementById('kmTripsWrapper');
 
-    tcs.addEventListener('change', () => {
-      tripKmContainer.style.display = tcs.value === 'YES' ? 'block' : 'none';
+    company.addEventListener('change', () => {
+      wrapper.innerHTML = '';
+      if (company.value === 'TCS') {
+        wrapper.innerHTML = `
+          <label for="totalKm">Trip KM</label>
+          <input type="number" name="totalKm" id="totalKm" step="0.01" required>
+        `;
+      } else if (company.value) {
+        wrapper.innerHTML = `
+          <label for="trips">Number of Trips</label>
+          <input type="number" name="trips" id="trips" required>
+        `;
+      }
     });
 
-    document.getElementById('checklistForm').addEventListener('submit', function(e) {
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      const form = e.target;
-
-      fetch('https://script.google.com/macros/s/AKfycbz4dXjSM-zYRK-CMF25xJGFx4voWTl16dteTdsHmUyPCQvdTqG8C1AEchoVO099DfnA/exec', {
+      fetch(scriptURL, {
         method: 'POST',
         body: new FormData(form)
       })
       .then(response => {
         alert('Form submitted successfully!');
         form.reset();
-        tripKmContainer.style.display = 'none';
+        wrapper.innerHTML = '';
       })
       .catch(error => {
-        alert('Error submitting form!');
-        console.error(error);
+        alert('Error submitting form: ' + error.message);
       });
     });
   </script>
 </body>
 </html>
-
-
-
