@@ -120,9 +120,11 @@
         <option value="IN">IN</option>
         <option value="OUT">OUT</option>
       </select>
+     <label for="driverId">Driver ID (e.g., name first letter + phone number last 4 digit [M1234: "MD SADDAM MOLLA + 1234567890])</label>
+<input type="text" name="driverId" id="driverId" required>
 
-      <label for="driverName">Driver Name</label>
-      <input type="text" name="driverName" id="driverName" required>
+<label for="driverName">Driver Name</label>
+<input type="text" name="driverName" id="driverName" readonly>
 
       <label for="vehicleNumber">Vehicle Number</label>
       <select name="vehicleNumber" id="vehicleNumber" required>
@@ -198,42 +200,125 @@
     </form>
   </div>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwzL48IJc_JiPT7_q6BJrYQBWbiGw9rB1wswxuYlo8JoRve6ioywIIiuKq5ncc6i8D6/exec';
-    const form = document.getElementById('checklistForm');
-    const company = document.getElementById('company');
-    const wrapper = document.getElementById('kmTripsWrapper');
+ <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwzL48IJc_JiPT7_q6BJrYQBWbiGw9rB1wswxuYlo8JoRve6ioywIIiuKq5ncc6i8D6/exec';
+  const form = document.getElementById('checklistForm');
+  const company = document.getElementById('company');
+  const wrapper = document.getElementById('kmTripsWrapper');
 
-    company.addEventListener('change', () => {
+  // Auto-switch field based on company selection
+  company.addEventListener('change', () => {
+    wrapper.innerHTML = '';
+    if (company.value === 'TCS') {
+      wrapper.innerHTML = `
+        <label for="totalKm">Trip KM</label>
+        <input type="number" name="totalKm" id="totalKm" step="0.01" required>
+      `;
+    } else if (company.value) {
+      wrapper.innerHTML = `
+        <label for="trips">Number of Trips</label>
+        <input type="number" name="trips" id="trips" required>
+      `;
+    }
+  });
+
+  // Driver ID → Driver Name map
+  const driverMap = {
+    S6532: "SWARAJIT MONDAL",
+    A7400: "AVISHEK NAYAK",
+    A7425: "ABUL KAHER GAZI",
+    B9510: "BIKRAM BHATTACHARJEE",
+    B6256: "BIKASH SARDAR",
+    A0348: "ADALAT HUSSAIN",
+    S0918: "SANAJIT MONDAL",
+    R4775: "RAJIB CHAKRABORTY",
+    A4393: "APU PODDAR",
+    S8808: "SHAHDEV MONDAL",
+    S5520: "SUVODIP SARDAR",
+    A7174: "ASHOK SHETTY",
+    S0994: "SIBSANKAR MAITY",
+    M5644: "MD ALKAMA ALI",
+    B9194: "BIKRAM MITRA",
+    P7857: "PALASH PAIK",
+    C3276: "CHANDAN KOIRI",
+    M5462: "MITHUN RAHAMAN SEKH",
+    A9873: "ABU KALAM MOLLA",
+    M8474: "MUNSHI ABU RAIHAN",
+    R1108: "RAJU SINGH",
+    J4304: "JHANTU SHAIKH",
+    S6013: "SIRAJ MONDAL",
+    R4741: "RAJESH RAVIDAS",
+    S0731: "SURAJIT DAS",
+    M3128: "MD IBRAHIM",
+    M5099: "MD WAJID",
+    P1673: "PRAVEEN KUMAR",
+    B4865: "BIJOY SARDAR",
+    V1372: "VISHAL KUMAR",
+    R9451: "RAJ KUMAR BAG",
+    B3703: "BAPPA MONDAL",
+    D8808: "DIPAK DAS",
+    P4089: "PINTU DAS",
+    D3194: "DIPU DAS",
+    G5425: "GAUTAM SINGH",
+    S9979: "SUJIT MAZUMDER",
+    M1895: "MODHUSUDHAN",
+    S0756: "SOURAV MAITY",
+    M8600: "MD. RAJ",
+    M1533: "MD. IRFAN",
+    S1504: "SUVAJIT MONDAL",
+    S1617: "SURAJ SHAW",
+    M3024: "MD SADDAM MOLLA",
+    N9634: "NOOR ISLAM",
+    S2311: "SEKH SABIR ALI",
+    R8022: "RANJAN MANDAL",
+    K0265: "KAMAL DAS",
+    M5664: "MD MERAJ",
+    M3742: "MINAJUL SHEKH",
+    S2197: "SUMAN PRAMANIK",
+    M7628: "MAHAMAD ABDUL MOTALEB MOLLA",
+    H3391: "HASIBUL ISLAM",
+    S7633: "SUKHDEVA ANIL SARKAR",
+    P7349: "PARTHA DAS",
+    K4578: "KAMAL UDDIN",
+    P5141: "PRITAM KUMAR ASH",
+    P9456: "PRADIP MONDAL",
+    B6542: "BHASKAR DAS",
+    B4665: "BABLU BAIDYA",
+    A2842: "ABDUL SAMAD MONDAL",
+    S7378: "SURAJIT SAHA",
+    M5319: "MD. SAFIQUL ALI",
+    R1686: "RAKESH MISHRA",
+    R6136: "RAFIK ALI MOLLA",
+    A6442: "ADITYA CHAKRABORTY",
+    M1790: "MD EDRISH",
+    E8159: "EMTIYAZ"
+  };
+
+  // Auto-fill driver name
+  document.getElementById('driverId').addEventListener('input', function () {
+    const input = this.value.toUpperCase().trim();
+    const name = driverMap[input];
+    document.getElementById('driverName').value = name || '';
+  });
+
+  // Submit form
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    fetch(scriptURL, {
+      method: 'POST',
+      body: new FormData(form)
+    })
+    .then(response => {
+      alert('Form submitted successfully!');
+      form.reset();
       wrapper.innerHTML = '';
-      if (company.value === 'TCS') {
-        wrapper.innerHTML = `
-          <label for="totalKm">Trip KM</label>
-          <input type="number" name="totalKm" id="totalKm" step="0.01" required>
-        `;
-      } else if (company.value) {
-        wrapper.innerHTML = `
-          <label for="trips">Number of Trips</label>
-          <input type="number" name="trips" id="trips" required>
-        `;
-      }
+    })
+    .catch(error => {
+      alert('Error submitting form: ' + error.message);
     });
+  });
+</script>
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      fetch(scriptURL, {
-        method: 'POST',
-        body: new FormData(form)
-      })
-      .then(response => {
-        alert('Form submitted successfully!');
-        form.reset();
-        wrapper.innerHTML = '';
-      })
-      .catch(error => {
-        alert('Error submitting form: ' + error.message);
-      });
-    });
-  </script>
+
 </body>
 </html>
