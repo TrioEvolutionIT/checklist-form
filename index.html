@@ -198,13 +198,25 @@
 
       <label for="remarks">Remarks (if any)</label>
       <textarea name="remarks" id="remarks" rows="3" style="width: 100%; padding: 10px; border: 2px solid #d8f3dc; border-radius: 8px; background: #f8fff9; box-sizing: border-box;"></textarea>
+      <label for="chargingToHub">From Charging Station to TRIO Hub</label>
+<select name="chargingToHub" id="chargingToHub" required>
+  <option value="">Select</option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select>
 
+<label for="offlineBooking">Offline Booking</label>
+<select name="offlineBooking" id="offlineBooking" required>
+  <option value="">Select</option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select>
       <button type="submit">Submit</button>
     </form>
   </div>
 
  <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxk2h3guB-ADB_p-BLxOuTemczbXNs9odY7AsW5K-G5quDxH0C56YmweeKAghmhKTe62Q/exec';
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyTargAYd6k_YzcicaXd-v7cLa7f-a7miClTv8sJNV4hOpNpZ4dCTZ1VQv13hXGOceT-Q/exec';
   const form = document.getElementById('checklistForm');
   const company = document.getElementById('company');
   const wrapper = document.getElementById('kmTripsWrapper');
@@ -306,6 +318,7 @@
   S1442: "SUKAMAL MISTRY",
   S7459: "SUMIT BISWAS",
   S0136: "SAMRAT DAS",
+  S2161: "SATINATH CHAKRABORTY",
     E8159: "EMTIYAZ"
   };
 
