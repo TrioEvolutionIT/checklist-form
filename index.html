@@ -239,19 +239,20 @@
   const wrapper = document.getElementById('kmTripsWrapper');
 
   // Auto-switch field based on company selection
- if (company.value === 'TCS') {
-  wrapper.innerHTML = `
-    <label for="totalKm">Trip KM</label>
-    <input type="number" name="totalKm" id="totalKm" step="0.01" required>
-  `;
-} else if (
-  ['Concentrix', 'Capgemini', 'Cognizant', 'SEITech', 'Rental Booking', 'Other'].includes(company.value)
-) {
-  wrapper.innerHTML = `
-    <label for="trips">Number of Trips</label>
-    <input type="number" name="trips" id="trips" required>
-  `;
-}
+company.addEventListener('change', () => {
+    wrapper.innerHTML = '';
+    if (company.value === 'TCS') {
+      wrapper.innerHTML = `
+        <label for="totalKm">Trip KM</label>
+        <input type="number" name="totalKm" id="totalKm" step="0.01" required>
+      `;
+    } else if (company.value) {
+      wrapper.innerHTML = `
+        <label for="trips">Number of Trips or Hours</label>
+        <input type="number" name="trips" id="trips" required>
+      `;
+    }
+  });
 
 
   // Driver ID → Driver Name map
