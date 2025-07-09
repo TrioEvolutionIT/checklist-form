@@ -245,7 +245,7 @@ if (company.value === 'TCS') {
     <input type="number" name="totalKm" id="totalKm" step="0.01" required>
   `;
 } else if (
-  ['Concentrix', 'Capgemini', 'Cognizant', 'SEITech', 'Rental Booking'].includes(company.value)
+  ['Concentrix', 'Capgemini', 'Cognizant', 'SEITech', 'Rental Booking', 'Other' ].includes(company.value)
 ) {
   wrapper.innerHTML = `
     <label for="trips">Number of Trips or Hours</label>
